@@ -1,0 +1,31 @@
+<h1>Show Word</h1>
+
+<%= if @live_action in [:edit] do %>
+  <.modal return_to={Routes.word_show_path(@socket, :show, @word)}>
+    <.live_component
+      module={LingoWeb.WordLive.FormComponent}
+      id={@word.id}
+      title={@page_title}
+      action={@live_action}
+      word={@word}
+      return_to={Routes.word_show_path(@socket, :show, @word)}
+    />
+  </.modal>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @word.name %>
+  </li>
+
+  <li>
+    <strong>Is used:</strong>
+    <%= @word.is_used? %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.word_show_path(@socket, :edit, @word), class: "button" %></span> |
+<span><%= live_redirect "Back", to: Routes.word_index_path(@socket, :index) %></span>
